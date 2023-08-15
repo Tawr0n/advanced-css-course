@@ -10,11 +10,17 @@
   visibility: hidden;
   transition: all .3s;
 
+  @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, .3);
+  }
+
   &__content {
     @include absCenter;
 
     display: table;
-    width: 75%;
+    //width: 50%;
     background-color: $color-white;
     box-shadow: 0 2rem 4rem rgba($color-black, .2);
     border-radius: 3px;
@@ -22,28 +28,67 @@
     opacity: 0;
     transform: translate(-50%, -50%) scale(.25);
     transition: all .5s .2s;
+    text-align: center;
+
+    @include respond(big-desktop) {
+      width: 75%;
+    }
+
+    @include respond(tab-land) {
+      width: 60%;
+    }
+
+    @include respond(tab-port) {
+      width: 75%;
+    }
+
+    @include respond(phone) {
+      width: 90%;
+
+    }
   }
 
   &__left {
-    display: table-cell;
-    width: 33.33333%;
+    display: flex;
+
+    @include respond(big-desktop) {
+      display: table-cell;
+      width: 33.33333%;
+    }
+    @media only screen and (max-height: 37.5em) and (orientation: landscape) {
+      display: none;
+    }
   }
 
   &__right {
-    display: table-cell;
-    width: 66.66667%;
-    vertical-align: middle;
+
     padding: 3rem 5rem;
+
+    @include respond(big-desktop) {
+      display: table-cell;
+      width: 66.66667%;
+      vertical-align: middle;
+    }
+
+    @include respond(phone) {
+      padding: 2.5rem 2rem;
+    }
   }
 
   &__img {
-    display: block;
-    width: 100%;
+    width: 50%;
+
+    @include respond(big-desktop) {
+      display: block;
+      width: 100%;
+    }
   }
 
   &__text {
     font-size: 1.4rem;
     margin-bottom: 4rem;
+    margin-top: 3rem;
+    text-align: left;
 
     column-count: 2;
     column-gap: 4rem; //1em = 14px
@@ -52,6 +97,12 @@
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
+
+    @include respond(phone) {
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+      column-gap: 3rem;
+    }
   }
 
   // Open states
@@ -59,22 +110,29 @@
     opacity: 1;
     visibility: visible;
   }
+
   &:target &__content {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
+
   &__close {
     &:link,
     &:visited {
       color: $color-grey-dark-1;
       position: absolute;
-      top: 2.5rem;
-      right: 2.5rem;
-      font-size: 3rem;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 3.5rem;
       text-decoration: none;
       display: inline-block;
       transition: all .2s;
       line-height: 1;
+
+      @include respond(tab-port) {
+
+
+      }
     }
 
     &:hover,
